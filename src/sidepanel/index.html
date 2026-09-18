@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Chat</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="top-row">
+      <h1>Page Chat</h1>
+      <button id="toggleSettings" type="button" class="ghost" title="Налаштування">⚙</button>
+    </div>
+    <p id="pageMeta" class="muted">Контекст сторінки ще не зчитано</p>
+    <p id="savedCtxMeta" class="muted" hidden></p>
+  </header>
+
+  <section id="settings" class="card settings" hidden>
+    <h2>Налаштування</h2>
+    <label>
+      OpenRouter API key
+      <input id="apiKey" type="password" autocomplete="off" placeholder="sk-or-..." />
+    </label>
+    <label>
+      Модель (free)
+      <select id="modelPreset"></select>
+    </label>
+    <label>
+      ID моделі
+      <input id="model" type="text" placeholder="qwen/qwen3.8-27b:free" />
+    </label>
+    <label class="check">
+      <input id="preferSelection" type="checkbox" checked />
+      Якщо є виділення на сторінці — питати саме про нього
+    </label>
+
+    <div class="ctx-block">
+      <button id="toggleCtxList" type="button" class="secondary ctx-toggle">Ваш контекст</button>
+      <div id="ctxListPanel" class="ctx-list" hidden>
+        <label>
+          Обраний для чату
+          <select id="activeContext">
+            <option value="">— немає —</option>
+          </select>
+        </label>
+        <div class="row">
+          <button id="deleteContext" type="button" class="ghost danger">Видалити обраний</button>
+        </div>
+        <p class="muted">Наприклад портфоліо для Djinni — підставиться в кожне повідомлення.</p>
+      </div>
+      <button id="openCreateContext" type="button" class="secondary">Створити контекст</button>
+    </div>
+
+    <div class="row">
+      <button id="refreshPage" type="button" class="secondary">Оновити контекст сторінки</button>
+      <button id="saveSettings" type="button" class="secondary">Зберегти</button>
+    </div>
+  </section>
+
+  <section id="contextCreate" class="card settings" hidden>
+    <h2>Новий контекст</h2>
+    <label>
+      Назва
+      <input id="ctxName" type="text" placeholder="Напр. Портфоліо" maxlength="80" />
+    </label>
+    <label>
+      Текст <span class="req">*</span>
+      <textarea id="ctxText" rows="8" placeholder="Обов’язково: резюме, нотатки…"></textarea>
+    </label>
+    <label class="file">
+      Файли .txt / .md (опційно, кілька)
+      <input id="ctxFile" type="file" accept=".txt,.md,text/plain,text/markdown" multiple />
+    </label>
+    <p id="ctxFileMeta" class="muted"></p>
+    <p id="ctxFormStatus" class="status" hidden></p>
+    <div class="row">
+      <button id="createContext" type="button">Створити</button>
+      <button id="cancelCreateContext" type="button" class="secondary">Назад</button>
+    </div>
+  </section>
+
+  <main id="thread" class="thread" aria-live="polite"></main>
+
+  <footer id="composer" class="composer">
+    <p id="status" class="status" hidden></p>
+    <textarea id="input" rows="3" placeholder="Питання про цю сторінку…"></textarea>
+    <div class="row">
+      <button id="send" type="button">Надіслати</button>
+      <button id="clearChat" type="button" class="secondary">Очистити</button>
+    </div>
+  </footer>
+
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

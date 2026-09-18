@@ -1,0 +1,12 @@
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true }).catch(() => {})
+})
+
+chrome.action.onClicked.addListener(async (tab) => {
+  if (!tab?.id) return
+  try {
+    await chrome.sidePanel.open({ tabId: tab.id })
+  } catch (_) {
+    /* already open */
+  }
+})
